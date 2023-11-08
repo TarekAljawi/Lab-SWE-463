@@ -1,0 +1,81 @@
+{
+  "users": [
+    {
+      "email": "swe_463@example.com",
+      "password": "$2a$10$p3llO4K67K7XzuT4bCJGW.TIGRYLjMQN1RACz.qkcvGSLX3.nUvy2",
+      "id": 1
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Groceries",
+      "icon": 57902
+    },
+    {
+      "id": 2,
+      "name": "Frozen and Cooled Foods",
+      "icon": 57399
+    },
+    {
+      "id": 3,
+      "name": "Cleaning",
+      "icon": 57703
+    },
+    {
+      "id": 4,
+      "name": "Meats and Fish",
+      "icon": 58750
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Tea Bags",
+      "category": {
+        "id": 1,
+        "name": "Groceries",
+        "icon": 57902
+      },
+      "quantity": 1,
+      "isBought": true,
+      "userId": 1
+    },
+    {
+      "userId": 1,
+      "id": 2,
+      "name": "Orange Juice",
+      "category": {
+        "id": 2,
+        "name": "Frozen and Cooled Foods",
+        "icon": 57399
+      },
+      "quantity": 2,
+      "isBought": false
+    },
+    {
+      "userId": 1,
+      "id": 3,
+      "name": "Detergent",
+      "category": {
+        "id": 3,
+        "name": "Cleaning",
+        "icon": 57703
+      },
+      "quantity": 1,
+      "isBought": true
+    },
+    {
+      "userId": 1,
+      "id": 1690904048045,
+      "name": "Fish",
+      "category": {
+        "id": 4,
+        "name": "Meats and Fish",
+        "icon": 58750
+      },
+      "quantity": 1,
+      "isBought": false
+    }
+  ]
+}

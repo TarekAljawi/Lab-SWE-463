@@ -12,80 +12,71 @@ class ShoppingListPage extends StatefulWidget {
 }
 
 class _ShoppingListPageState extends State<ShoppingListPage> {
-  void _addItem(Product item) {
-    setState(() {
-      context.read<ShoppingListProvider>().addItem(item);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shopping List'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) =>  const PreferencesPage());
-            },
-            icon: const Icon(Icons.tune),
-          )
-        ],
       ),
       body: Consumer<ShoppingListProvider>(
-          builder: (context , model, child) {
-            return ListView.builder(
-              itemCount: model.products.length,
-              itemBuilder: (context, index) {
-                final item = model.products[index];
-                return ListTile(
-                  leading: Icon(
-                    item.category.icon,
-                    color: Colors.blue,
-                  ),
-                  title: Text(item.name),
-                  subtitle: Text('${item.category.name} - ${item.quantity}'),
-                  trailing: Checkbox(
-                    value: item.isBought,
-                    onChanged: (value) {
-                      setState(() {
-                        model.itemBoughtChanged(item);
-                      });
-                    },
-                  ),
-                );
-              },
-            );
-          }
+        builder: (context, state, child) {
+          // Use a ListView.builder to display a list of items. You can customize this part to fit your UI.
+          return ListView.builder(
+            itemCount: state.products.length,
+            itemBuilder: (context, index) {
+              final item = state.products[index];
+
+              return ListTile(
+                title: Text(item.name),
+                trailing: Checkbox(
+                  value: item.isBought,
+                  onChanged: (value) {
+                    state.itemBoughtChanged(item);
+                  },
+                ),
+                // Add more item details or actions as needed here.
+              );
+            },
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           // Navigate to add item page
-          final item =
-          await Navigator.of(context).push<Product>(MaterialPageRoute(
-            builder: (context) => const AddItemPage(),
-          ));
+          final item = await Navigator.of(context).push<Product>(
+            MaterialPageRoute(
+              builder: (context) => const AddItemPage(),
+            ),
+          );
           if (item != null) {
-            _addItem(item);
+            context.read<ShoppingListProvider>().addItem(item);
           }
         },
         child: const Icon(Icons.add),
       ),
     );
   }
+
+  void _addItem(Product item) {
+    context.read<ShoppingListProvider>().addItem(item);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ShoppingListProvider>().getProducts();
+  }
 }
 
+/*
 class PreferencesPage extends StatefulWidget {
-  const PreferencesPage( {super.key});
+  const PreferencesPage({super.key});
 
   @override
   State<PreferencesPage> createState() => _PreferencesPageState();
 }
 
 class _PreferencesPageState extends State<PreferencesPage> {
-
   @override
   Widget build(BuildContext context) {
     return Consumer<ShoppingListProvider>(
@@ -120,3 +111,4 @@ class _PreferencesPageState extends State<PreferencesPage> {
     );
   }
 }
+*/
